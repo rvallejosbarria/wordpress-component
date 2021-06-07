@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: gray; }
+        .box {
+            width: 65%;
+            margin: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+        }
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .box > div {
+            margin: 25px;
+        }
+        .box > div label { display: block; margin-bottom: 10px; }
+        /* Reset element */
+        select { border: unset; border-radius: unset; appearance: none; outline: unset; }
+        select {
+            font-weight: 600;
+            color: darkgreen;
+            padding: 5px;
+            width: 175px;
+            border-bottom: .08rem solid green;
+        }
+        .button {
+            color: white;
+            padding: 10px 50px;
+            border-radius: 5px;
+            background-color: lightseagreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <!-- Select #1 -->
+        <div>
+            <label>Ingresa tu sector</label>
+            <select onchange="getOptions()" id="select_sector">
+                <option selected>Seleccionar</option>
+                <option>Zona Norte</option>
+                <option>Zona Centro</option>
+                <option>Zona Sur</option>
+            </select>
+        </div>
+        
+        <!-- Select #2 -->
+        <div>
+            <label>Ingresa tu ciudad</label>
+            <select onchange="setDestination()" id="select_city">
+                <option selected>Seleccionar</option>
+            </select>
+        </div>
+        
+        <!-- Button -->
+        <div>
+            <a href="#" class="button" id="test">Agendar</a>
+        </div>
+    </div>
+</body>
+<script>
+    function getOptions() {
+        // get reference to select element
+        city = document.getElementById('select_city')
+        // clean options in select element
+        removeOptions(city)
+        // get sector
+        sector = document.getElementById('select_sector').value
+        switch(sector) {
+            case 'Zona Norte':
+            // create options
+            c = ['Ciudad #1', 'Ciudad #2', 'Ciudad #3', 'Ciudad #4', 'Ciudad #5', 'Ciudad #6']
+            for (i = 0; i < c.length; i++) {
+                // create new option element
+                opt = document.createElement('option')
+                // create text node to add to option element (opt)
+                opt.appendChild( document.createTextNode(c[i]) )
+                // set value property of opt
+                opt.value = 'https://www.youtube.com/'
+                // add opt to end of select box (sel)
+                city.appendChild( opt )
+            }
+            // console.log(city.options)
+            break
+        }
+    }
+    function removeOptions(sel) {
+        for (i = sel.length - 1; i >= 1; i--) {
+            sel.remove(i)
+        }
+    }
+    function setDestination() {
+        // get reference to select element
+        sel = document.getElementById('select_city')
+        // get selected index
+        i = sel.options.selectedIndex
+        // get value from option selected
+        val = sel.options[i].value
+        // assign value to href property
+        document.getElementById('test').href = val
+    }
+</script>
+</html>
